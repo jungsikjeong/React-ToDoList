@@ -1,18 +1,18 @@
 ## stack
 
-- styled-components
+- react
 
--
+- redux
+
+- styled-components
 
 ---
 
 ## 구조
 
-전체HOME화면을보여주는 컴포넌트 [App.js]
+전체 할일 리스트 화면을보여주는 컴포넌트 [App.js]
 
-할일 추가하는 컴포넌트
-
-할일 리스트를 보여주는 컴포넌트
+할일 추가하는 컴포넌트 [todoInsert.js]
 
 ---
 
