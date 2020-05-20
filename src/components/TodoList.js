@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { RiEmotionNormalLine, RiEmotionHappyLine } from "react-icons/ri";
 import TodoInsert from "./TodoInsert";
@@ -43,10 +43,15 @@ const Span = styled.span`
 `;
 
 const TodoList = ({ posts }) => {
+  useEffect(() => {
+    console.log(posts);
+  }, []);
+
   return (
     <Container>
       <ContainerBox>
         <span>Today</span>
+
         {posts.map((post) => (
           <Content key={post.id}>
             {post.checked ? (

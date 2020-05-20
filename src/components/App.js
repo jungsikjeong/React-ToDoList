@@ -1,25 +1,9 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { useSelector } from "react-redux";
 import TodoList from "./TodoList";
 
 const App = () => {
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      body: "test one text",
-      checked: false,
-    },
-    {
-      id: 2,
-      body: "test tne text",
-      checked: false,
-    },
-    {
-      id: 3,
-      body: "test three text",
-      checked: true,
-    },
-  ]);
+  const posts = useSelector((state) => state.todos);
 
   return <TodoList posts={posts} />;
 };
