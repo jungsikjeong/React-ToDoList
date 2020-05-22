@@ -64,9 +64,9 @@ const Span = styled.span`
 `;
 
 const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
-  // const todoList = localStorage.getItem("todo");
-
+  // GET localStorage
   const todoList = JSON.parse(localStorage.getItem("todo")) || "";
+
   console.log("todoList:", todoList);
   console.log("todos:", todos);
 
@@ -123,6 +123,7 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
         ) : (
           <Default />
         )}
+        {todoList.length === 0 && <Default />}
 
         <TodoInsert onInsert={onInsert} />
       </ContainerBox>
