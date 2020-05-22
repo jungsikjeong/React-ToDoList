@@ -12,7 +12,6 @@ const Content = styled.div`
     align-items: center;
     vertical-align: middle;
     text-align: center;
-    cursor: pointer;
 
     span {
       font-size: 1.2rem;
