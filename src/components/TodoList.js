@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled, { css } from "styled-components";
 import { RiEmotionNormalLine, RiEmotionHappyLine } from "react-icons/ri";
 import { BsTrash } from "react-icons/bs";
 
 import TodoInsert from "./TodoInsert";
+import Default from "./Default";
 
 const Container = styled.div`
   font-size: 2rem;
@@ -15,7 +16,7 @@ const ContainerBox = styled.div`
   justify-content: center;
   padding: 9rem;
 
-  .title {
+  a {
     margin-bottom: 1rem;
   }
 
@@ -23,6 +24,11 @@ const ContainerBox = styled.div`
     display: flex;
     align-items: center;
     margin-top: 1rem;
+    ${(props) =>
+      props.reset &&
+      css`
+        background: red;
+      `}
 
     input {
       border: 0px;
@@ -31,15 +37,20 @@ const ContainerBox = styled.div`
 `;
 
 const Content = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   padding: 1rem 0rem;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #dee2e6;
 
   .textContainer {
     display: flex;
     align-items: center;
     vertical-align: middle;
     text-align: center;
+    cursor: pointer;
+  }
+
+  :hover {
+    background: #f8f9fa;
   }
 `;
 
@@ -48,22 +59,27 @@ const Span = styled.span`
     props.check &&
     css`
       text-decoration: line-through;
+      color: #adb5bd;
     `}
 `;
 
 const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
-  useEffect(() => {
-    console.log(todos);
-  });
+  // const todoList = localStorage.getItem("todo");
+
+  const todoList = JSON.parse(localStorage.getItem("todo"));
+  // console.log("todoList:", todoList.todos[0]);
+  // console.log("todos:", todos);
 
   return (
     <Container>
       <ContainerBox>
-        <span className="title">Today</span>
+        <a href="/">
+          <span className="title">Today</span>
+        </a>
 
-        {todos ? (
-          todos.map((todo) => (
-            <Content key={todo.id} onClick={() => onToggle(todo.id)}>
+        {todos && todoList.todos ? (
+          todoList.todos.map((todo) => (
+            <Content key={todo.id}>
               {todo.checked ? (
                 <>
                   <div className="textContainer">
@@ -71,12 +87,16 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
                       style={{
                         verticalAlign: "middle",
                         marginRight: "0.5rem",
+                        color: "#fa5252",
                       }}
+                      onClick={() => onToggle(todo.id)}
                     />
-                    <Span check>{todo.text}</Span>{" "}
+                    <Span check onClick={() => onToggle(todo.id)}>
+                      {todo.text}
+                    </Span>
                     <BsTrash
                       onClick={() => onRemove(todo.id)}
-                      style={{ marginLeft: "auto", cursor: "pointer" }}
+                      style={{ marginLeft: "auto" }}
                     />
                   </div>
                 </>
@@ -88,11 +108,12 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
                         verticalAlign: "middle",
                         marginRight: "0.5rem",
                       }}
+                      onClick={() => onToggle(todo.id)}
                     />
-                    <Span>{todo.text}</Span>{" "}
+                    <Span onClick={() => onToggle(todo.id)}>{todo.text}</Span>
                     <BsTrash
                       onClick={() => onRemove(todo.id)}
-                      style={{ marginLeft: "auto", cursor: "pointer" }}
+                      style={{ marginLeft: "auto" }}
                     />
                   </div>
                 </>
@@ -100,8 +121,9 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
             </Content>
           ))
         ) : (
-          <div>todos를 찾을수 없습니다.</div>
+          <Default />
         )}
+
         <TodoInsert onInsert={onInsert} />
       </ContainerBox>
     </Container>

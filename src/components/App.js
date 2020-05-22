@@ -2,25 +2,9 @@ import React, { useRef, useCallback, useState } from "react";
 import TodoList from "./TodoList";
 
 const App = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "test one text",
-      checked: false,
-    },
-    {
-      id: 2,
-      text: "test two text",
-      checked: false,
-    },
-    {
-      id: 3,
-      text: "test three text",
-      checked: true,
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
 
-  const nextId = useRef(4);
+  const nextId = useRef(1);
 
   const onInsert = useCallback(
     (text) => {
@@ -30,14 +14,11 @@ const App = () => {
         checked: false,
       };
       setTodos(todos.concat(todo));
+      localStorage.setItem("todo", JSON.stringify({ todos }));
       nextId.current += 1;
     },
     [todos]
   );
-
-  // const onToggle = useCallback( () => {
-
-  // },[])
 
   const onToggle = useCallback(
     (id) => {
