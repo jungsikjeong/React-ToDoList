@@ -7,6 +7,13 @@ import TodoInsert from "./TodoInsert";
 import Default from "./Default";
 
 const Container = styled.div`
+  @media (max-width: 600px) {
+    width: 512px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6rem;
+    overflow: hidden;
+  }
   font-size: 2rem;
 `;
 
@@ -15,6 +22,12 @@ const ContainerBox = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 9rem;
+  @media (max-width: 600px) {
+    padding: 0rem;
+  }
+
+  .title {
+  }
 
   a {
     margin-bottom: 1rem;
@@ -40,6 +53,10 @@ const Content = styled.div`
   font-size: 1.2rem;
   padding: 1rem 0rem;
   border-bottom: 1px solid #dee2e6;
+  @media (max-width: 600px) {
+    width: 100vw;
+    overflow-x: hidden;
+  }
 
   .textContainer {
     display: flex;
@@ -61,6 +78,9 @@ const Span = styled.span`
       text-decoration: line-through;
       color: #adb5bd;
     `}
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 
 const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
@@ -77,52 +97,50 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
           <span className="title">Today</span>
         </a>
 
-        {todos && todoList ? (
-          todoList.map((todo) => (
-            <Content key={todo.id}>
-              {todo.checked ? (
-                <>
-                  <div className="textContainer">
-                    <RiEmotionHappyLine
-                      style={{
-                        verticalAlign: "middle",
-                        marginRight: "0.5rem",
-                        color: "#fa5252",
-                      }}
-                      onClick={() => onToggle(todo.id)}
-                    />
-                    <Span check onClick={() => onToggle(todo.id)}>
-                      {todo.text}
-                    </Span>
-                    <BsTrash
-                      onClick={() => onRemove(todo.id)}
-                      style={{ marginLeft: "auto" }}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="textContainer">
-                    <RiEmotionNormalLine
-                      style={{
-                        verticalAlign: "middle",
-                        marginRight: "0.5rem",
-                      }}
-                      onClick={() => onToggle(todo.id)}
-                    />
-                    <Span onClick={() => onToggle(todo.id)}>{todo.text}</Span>
-                    <BsTrash
-                      onClick={() => onRemove(todo.id)}
-                      style={{ marginLeft: "auto" }}
-                    />
-                  </div>
-                </>
-              )}
-            </Content>
-          ))
-        ) : (
-          <Default />
-        )}
+        {todos && todoList
+          ? todoList.map((todo) => (
+              <Content key={todo.id}>
+                {todo.checked ? (
+                  <>
+                    <div className="textContainer">
+                      <RiEmotionHappyLine
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "0.5rem",
+                          color: "#fa5252",
+                        }}
+                        onClick={() => onToggle(todo.id)}
+                      />
+                      <Span check onClick={() => onToggle(todo.id)}>
+                        {todo.text}
+                      </Span>
+                      <BsTrash
+                        onClick={() => onRemove(todo.id)}
+                        style={{ marginLeft: "auto" }}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="textContainer">
+                      <RiEmotionNormalLine
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "0.5rem",
+                        }}
+                        onClick={() => onToggle(todo.id)}
+                      />
+                      <Span onClick={() => onToggle(todo.id)}>{todo.text}</Span>
+                      <BsTrash
+                        onClick={() => onRemove(todo.id)}
+                        style={{ marginLeft: "auto" }}
+                      />
+                    </div>
+                  </>
+                )}
+              </Content>
+            ))
+          : ""}
         {todoList.length === 0 && <Default />}
 
         <TodoInsert onInsert={onInsert} />

@@ -9,6 +9,7 @@ const Content = styled.div`
 
   .textContainer {
     display: flex;
+    flex: 1 1 auto;
     align-items: center;
     vertical-align: middle;
     text-align: center;
@@ -16,6 +17,9 @@ const Content = styled.div`
     span {
       font-size: 1.2rem;
       color: #adb5bd;
+      @media (max-width: 600px) {
+        font-size: 0.4rem;
+      }
     }
   }
 `;
