@@ -66,7 +66,7 @@ const Span = styled.span`
 const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
   // const todoList = localStorage.getItem("todo");
 
-  const todoList = JSON.parse(localStorage.getItem("todo"));
+  const todoList = JSON.parse(localStorage.getItem("todo")) || "";
   // console.log("todoList:", todoList.todos[0]);
   // console.log("todos:", todos);
 
