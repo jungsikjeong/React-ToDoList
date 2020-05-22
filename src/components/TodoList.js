@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import styled, { css } from "styled-components";
 import { RiEmotionNormalLine, RiEmotionHappyLine } from "react-icons/ri";
+import { BsTrash } from "react-icons/bs";
+
 import TodoInsert from "./TodoInsert";
 
 const Container = styled.div`
@@ -13,7 +15,7 @@ const ContainerBox = styled.div`
   justify-content: center;
   padding: 9rem;
 
-  span {
+  .title {
     margin-bottom: 1rem;
   }
 
@@ -32,6 +34,13 @@ const Content = styled.div`
   font-size: 1.5rem;
   padding: 1rem 0rem;
   border-bottom: 1px solid #ddd;
+
+  .textContainer {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center;
+  }
 `;
 
 const Span = styled.span`
@@ -42,39 +51,49 @@ const Span = styled.span`
     `}
 `;
 
-const TodoList = ({ posts }) => {
+const TodoList = ({ todos, onInsert, onRemove }) => {
   useEffect(() => {
-    console.log(posts);
-  }, []);
+    console.log(todos);
+  });
 
   return (
     <Container>
       <ContainerBox>
-        <span>Today</span>
+        <span className="title">Today</span>
 
-        {posts.map((post) => (
-          <Content key={post.id}>
-            {post.checked ? (
-              <>
-                <RiEmotionHappyLine
-                  style={{
-                    verticalAlign: "middle",
-                    marginRight: "0.5rem",
-                  }}
-                />
-                <Span check>{post.body}</Span>
-              </>
-            ) : (
-              <>
-                <RiEmotionNormalLine
-                  style={{ verticalAlign: "middle", marginRight: "0.5rem" }}
-                />
-                <Span>{post.body}</Span>
-              </>
-            )}
-          </Content>
-        ))}
-        <TodoInsert />
+        {todos ? (
+          todos.map((todo) => (
+            <Content key={todo.id}>
+              {todo.checked ? (
+                <>
+                  <div className="textContainer">
+                    <RiEmotionHappyLine
+                      style={{
+                        verticalAlign: "middle",
+                        marginRight: "0.5rem",
+                      }}
+                    />
+                    <Span check>{todo.text}</Span>{" "}
+                    <BsTrash onClick={() => onRemove(todo.id)} />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="textContainer">
+                    <RiEmotionNormalLine
+                      style={{ verticalAlign: "middle", marginRight: "0.5rem" }}
+                    />
+                    <Span>{todo.text}</Span>{" "}
+                    <BsTrash onClick={() => onRemove(todo.id)} />
+                  </div>
+                </>
+              )}
+            </Content>
+          ))
+        ) : (
+          <div>todos 찾을수 없습니다.</div>
+        )}
+        <TodoInsert onInsert={onInsert} />
       </ContainerBox>
     </Container>
   );
