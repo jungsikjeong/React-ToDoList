@@ -67,8 +67,8 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
   // const todoList = localStorage.getItem("todo");
 
   const todoList = JSON.parse(localStorage.getItem("todo")) || "";
-  // console.log("todoList:", todoList.todos[0]);
-  // console.log("todos:", todos);
+  console.log("todoList:", todoList);
+  console.log("todos:", todos);
 
   return (
     <Container>
@@ -77,8 +77,8 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
           <span className="title">Today</span>
         </a>
 
-        {todos && todoList.todos ? (
-          todoList.todos.map((todo) => (
+        {todos && todoList ? (
+          todoList.map((todo) => (
             <Content key={todo.id}>
               {todo.checked ? (
                 <>

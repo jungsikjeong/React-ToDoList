@@ -1,10 +1,10 @@
-import React, { useRef, useCallback, useState, useEffect } from "react";
+import React, { useRef, useCallback, useState } from "react";
 import TodoList from "./TodoList";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
 
-  const nextId = useRef(1);
+  const nextId = useRef(0);
 
   const onInsert = useCallback(
     (text) => {
@@ -14,7 +14,7 @@ const App = () => {
         checked: false,
       };
       setTodos(todos.concat(todo));
-      localStorage.setItem("todo", JSON.stringify({ todos }));
+      localStorage.setItem("todo", JSON.stringify(todos));
       nextId.current += 1;
     },
     [todos]
@@ -34,6 +34,9 @@ const App = () => {
   const onRemove = useCallback(
     (id) => {
       setTodos(todos.filter((todo) => todo.id !== id));
+      const todoList = JSON.parse(localStorage.getItem("todo")) || "";
+      const todoChange = todoList.filter((todo) => todo.id !== id);
+      localStorage.setItem("todo", JSON.stringify(todoChange));
     },
     [todos]
   );
