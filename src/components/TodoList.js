@@ -51,7 +51,7 @@ const Span = styled.span`
     `}
 `;
 
-const TodoList = ({ todos, onInsert, onRemove }) => {
+const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
   useEffect(() => {
     console.log(todos);
   });
@@ -60,39 +60,49 @@ const TodoList = ({ todos, onInsert, onRemove }) => {
     <Container>
       <ContainerBox>
         <span className="title">Today</span>
-
-        {todos ? (
-          todos.map((todo) => (
-            <Content key={todo.id}>
-              {todo.checked ? (
-                <>
-                  <div className="textContainer">
-                    <RiEmotionHappyLine
-                      style={{
-                        verticalAlign: "middle",
-                        marginRight: "0.5rem",
-                      }}
-                    />
-                    <Span check>{todo.text}</Span>{" "}
-                    <BsTrash onClick={() => onRemove(todo.id)} />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="textContainer">
-                    <RiEmotionNormalLine
-                      style={{ verticalAlign: "middle", marginRight: "0.5rem" }}
-                    />
-                    <Span>{todo.text}</Span>{" "}
-                    <BsTrash onClick={() => onRemove(todo.id)} />
-                  </div>
-                </>
-              )}
-            </Content>
-          ))
-        ) : (
-          <div>todos 찾을수 없습니다.</div>
-        )}
+        <div>
+          {todos ? (
+            todos.map((todo) => (
+              <Content key={todo.id} onClick={() => onToggle(todo.id)}>
+                {todo.checked ? (
+                  <>
+                    <div className="textContainer">
+                      <RiEmotionHappyLine
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "0.5rem",
+                        }}
+                      />
+                      <Span check>{todo.text}</Span>{" "}
+                      <BsTrash
+                        onClick={() => onRemove(todo.id)}
+                        style={{ marginLeft: "auto", cursor: "pointer" }}
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="textContainer">
+                      <RiEmotionNormalLine
+                        style={{
+                          verticalAlign: "middle",
+                          marginRight: "0.5rem",
+                        }}
+                      />
+                      <Span>{todo.text}</Span>{" "}
+                      <BsTrash
+                        onClick={() => onRemove(todo.id)}
+                        style={{ marginLeft: "auto", cursor: "pointer" }}
+                      />
+                    </div>
+                  </>
+                )}
+              </Content>
+            ))
+          ) : (
+            <div>todos 찾을수 없습니다.</div>
+          )}
+        </div>
         <TodoInsert onInsert={onInsert} />
       </ContainerBox>
     </Container>

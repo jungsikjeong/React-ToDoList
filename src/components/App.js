@@ -10,7 +10,7 @@ const App = () => {
     },
     {
       id: 2,
-      text: "test tne text",
+      text: "test two text",
       checked: false,
     },
     {
@@ -35,6 +35,21 @@ const App = () => {
     [todos]
   );
 
+  // const onToggle = useCallback( () => {
+
+  // },[])
+
+  const onToggle = useCallback(
+    (id) => {
+      setTodos(
+        todos.map((todo) =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo
+        )
+      );
+    },
+    [todos]
+  );
+
   const onRemove = useCallback(
     (id) => {
       setTodos(todos.filter((todo) => todo.id !== id));
@@ -42,7 +57,14 @@ const App = () => {
     [todos]
   );
 
-  return <TodoList todos={todos} onInsert={onInsert} onRemove={onRemove} />;
+  return (
+    <TodoList
+      todos={todos}
+      onInsert={onInsert}
+      onRemove={onRemove}
+      onToggle={onToggle}
+    />
+  );
 };
 
 export default App;
