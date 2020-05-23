@@ -25,7 +25,8 @@ const App = () => {
       setTodos(
         todos.map((todo) =>
           todo.id === id ? { ...todo, checked: !todo.checked } : todo
-        )
+        ),
+        localStorage.setItem("todo", JSON.stringify(todos))
       );
     },
     [todos]

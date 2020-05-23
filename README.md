@@ -2,8 +2,6 @@
 
 - react
 
-<!-- - redux -->
-
 - styled-components
 
 ---
