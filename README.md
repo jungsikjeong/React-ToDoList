@@ -16,6 +16,8 @@
 
 - styled-components
 
+- localStorage
+
 ---
 
 ## 구조
