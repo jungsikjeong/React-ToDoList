@@ -14,7 +14,7 @@ const App = () => {
         checked: false,
       };
       setTodos(todos.concat(todo));
-      localStorage.setItem("todo", JSON.stringify(todos));
+      localStorage.setItem("todo", JSON.stringify([...todos, todo]));
       nextId.current += 1;
     },
     [todos]
@@ -25,8 +25,7 @@ const App = () => {
       setTodos(
         todos.map((todo) =>
           todo.id === id ? { ...todo, checked: !todo.checked } : todo
-        ),
-        localStorage.setItem("todo", JSON.stringify(todos))
+        )
       );
     },
     [todos]
@@ -35,8 +34,10 @@ const App = () => {
   const onRemove = useCallback(
     (id) => {
       setTodos(todos.filter((todo) => todo.id !== id));
+
       const todoList = JSON.parse(localStorage.getItem("todo")) || "";
       const todoChange = todoList.filter((todo) => todo.id !== id);
+
       localStorage.setItem("todo", JSON.stringify(todoChange));
     },
     [todos]
