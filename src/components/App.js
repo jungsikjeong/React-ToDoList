@@ -27,6 +27,14 @@ const App = () => {
           todo.id === id ? { ...todo, checked: !todo.checked } : todo
         )
       );
+      localStorage.setItem(
+        "todo",
+        JSON.stringify(
+          todos.map((todo) =>
+            todo.id === id ? { ...todo, checked: !todo.checked } : todo
+          )
+        )
+      );
     },
     [todos]
   );
