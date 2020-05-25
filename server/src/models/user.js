@@ -2,9 +2,16 @@ import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 const UserSchema = new Schema({
-  username: String,
+  name: String,
+  email: String,
   hashedPassword: String,
 });
+
+UserSchema.methods.serialize = function () {
+  const data = this.toJSON();
+  delete data.hashedPassword;
+  return data;
+};
 
 UserSchema.methods.setPassword = async function (password) {
   const hash = await bcrypt.hash(password, 10);
@@ -16,8 +23,12 @@ UserSchema.methods.checkPassword = async function (password) {
   return result; //true or false
 };
 
-UserSchema.statics.findByUsername = async function (username) {
-  return this.findOne({ username });
+UserSchema.statics.findByName = function (name) {
+  return this.findOne({ name });
+};
+
+UserSchema.statics.findByEmail = function (email) {
+  return this.findOne({ email });
 };
 
 const User = mongoose.model('User', UserSchema);

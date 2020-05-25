@@ -3,9 +3,9 @@ import * as authCtrl from './auth.ctrl';
 
 const auth = new Router();
 
-auth.get('/register', authCtrl.register);
+auth.post('/register', authCtrl.register);
 auth.post('/login', authCtrl.login);
 auth.get('/check', authCtrl.check);
-auth.delete('/logout', authCtrl.logout);
+auth.post('/logout', authCtrl.logout);
 
 export default auth;
