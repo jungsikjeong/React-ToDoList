@@ -5,7 +5,7 @@ export const register = async (ctx) => {
   // 회원가입
   const schema = Joi.object().keys({
     name: Joi.string().min(3).max(10).required(),
-    email: Joi.string().email(),
+    email: Joi.string().email().required(),
     password: Joi.string().required(),
   });
 
@@ -18,14 +18,10 @@ export const register = async (ctx) => {
 
   const { name, email, password } = ctx.request.body;
   try {
-    // name과 email 중복 체크
-    const existsName = await User.findByName(name);
-    if (existsName) {
-      ctx.status = 409; // Conflict
-      return;
-    }
-    const existsEmail = await User.findByEmail(email);
-    if (existsEmail) {
+    // email 중복 체크
+
+    const exists = await User.findByEmail(email);
+    if (exists) {
       ctx.status = 409; // Conflict
       return;
     }
@@ -38,7 +34,7 @@ export const register = async (ctx) => {
     await user.save();
 
     // 응답할 데이터에서 hashedPassword 필드 제거
-    ctx.body = user.serialize;
+    ctx.body = user.serialize();
 
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {

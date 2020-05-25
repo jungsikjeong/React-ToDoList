@@ -39,10 +39,6 @@ UserSchema.methods.checkPassword = async function (password) {
   return result; //true or false
 };
 
-UserSchema.statics.findByName = function (name) {
-  return this.findOne({ name });
-};
-
 UserSchema.statics.findByEmail = function (email) {
   return this.findOne({ email });
 };
