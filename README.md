@@ -2,7 +2,7 @@
 
 [바로가기](https://jungsikjeong.github.io/React-ToDoList)
 
-![결과물](./client/src/assets/20200523_143546.png)
+![결과물](./DEMO/todo.png)
 
 ## 이슈
 
