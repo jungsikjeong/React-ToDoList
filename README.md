@@ -14,7 +14,7 @@
 
 - react
 
-- redux,redux-saga
+- redux,redux-saga (ducks패턴 활용)
 
 - styled-components
 
