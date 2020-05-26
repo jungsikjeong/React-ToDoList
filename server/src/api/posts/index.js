@@ -10,15 +10,15 @@ posts.get('/:id', postsCtrl.getPostById, postsCtrl.read);
 posts.delete(
   '/:id',
   checkLoggedIn,
-  postsCtrl.checkOwnPost,
   postsCtrl.getPostById,
+  postsCtrl.checkOwnPost,
   postsCtrl.remove,
 );
 posts.patch(
   '/:id',
   checkLoggedIn,
-  postsCtrl.checkOwnPost,
   postsCtrl.getPostById,
+  postsCtrl.checkOwnPost,
   postsCtrl.update,
 );
 
