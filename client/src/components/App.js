@@ -65,12 +65,12 @@ const App = () => {
       <Route component={WritePage} path="/write" exact />
       <Route component={PostPage} path="/@:name/:postId" exact />
 
-      <TodoList
+      {/* <TodoList
         todos={todos}
         onInsert={onInsert}
         onRemove={onRemove}
         onToggle={onToggle}
-      />
+      /> */}
     </>
   );
 };
