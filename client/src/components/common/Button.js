@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const StyledButton = styled.button`
   border: none;
@@ -12,6 +12,16 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   background: #228be6;
+  ${(props) =>
+    props.auth &&
+    css`
+      background: linear-gradient(
+        135deg,
+        rgba(135, 224, 253, 1) 0%,
+        rgba(83, 203, 241, 1) 55%,
+        rgba(5, 171, 224, 1) 99%
+      );
+    `}
   &:hover {
     background: #74c0fc;
   }

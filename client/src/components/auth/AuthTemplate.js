@@ -44,14 +44,31 @@ const SLink = styled(Link)`
   margin-left: 0.3rem;
 `;
 
-const AuthTemplate = ({ children }) => {
+const textMap = {
+  login: 'Login',
+  register: 'Sign Up',
+};
+
+const AuthTemplate = ({ children, type }) => {
+  const text = textMap[type];
   return (
     <AuthTemplateBlock>
       <WhiteBox>
         <div className="membership-area">
-          <span className="membership-text">Login</span>
-          <span style={{ opacity: '0.3' }}> or</span>{' '}
-          <SLink to="#">sing up</SLink>
+          {type === 'login' ? (
+            <div>
+              <span className="membership-text">Login</span>
+
+              <span style={{ opacity: '0.3' }}> or</span>
+              <SLink to="/register">sign up</SLink>
+            </div>
+          ) : (
+            <div>
+              <span className="membership-text">Sign Up</span>
+              <span style={{ opacity: '0.3' }}> or</span>
+              <SLink to="/login">login</SLink>
+            </div>
+          )}
         </div>
         {children}
       </WhiteBox>
