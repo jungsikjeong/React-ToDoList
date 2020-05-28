@@ -60,10 +60,10 @@ const App = () => {
   return (
     <>
       <Route component={PostListPage} path={['/@:name', '/']} exact />
-      <Route component={LoginPage} path="/login" exact />
-      <Route component={RegisterPage} path="/register" exact />
-      <Route component={WritePage} path="/write" exact />
-      <Route component={PostPage} path="/@:name/:postId" exact />
+      <Route component={LoginPage} path="/login" />
+      <Route component={RegisterPage} path="/register" />
+      <Route component={WritePage} path="/write" />
+      <Route component={PostPage} path="/@:name/:postId" />
 
       {/* <TodoList
         todos={todos}

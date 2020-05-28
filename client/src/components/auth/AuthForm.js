@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import Button from '../common/Button';
+import { Link } from 'react-router-dom';
 
 const AuthFormBlock = styled.div``;
 
@@ -34,6 +34,7 @@ const textMap = {
 
 const AuthForm = ({ type, form, onChange, onSubmit }) => {
   const text = textMap[type];
+
   return (
     <AuthFormBlock>
       <form onSubmit={onSubmit}>
@@ -57,6 +58,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
           autoComplete="new-password"
           name="password"
           placeholder="Password"
+          type="password"
           onChange={onChange}
           value={form.password}
         />
@@ -65,6 +67,7 @@ const AuthForm = ({ type, form, onChange, onSubmit }) => {
             autoComplete="new-password"
             name="passwordConfirm"
             placeholder="Password Check"
+            type="password"
             onChange={onChange}
             value={form.passwordConfirm}
           />
