@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { GoHome } from 'react-icons/go';
 
 const AuthTemplateBlock = styled.div`
   position: absolute;
@@ -24,7 +25,7 @@ const WhiteBox = styled.div`
     text-align: center;
     font-weight: bold;
     letter-spacing: -1px;
-
+    /* transition: background 0.2s, color 0.2s; */
     .membership-text {
       margin-right: 0.3rem;
       font-size: 1.3rem;
@@ -42,6 +43,9 @@ const WhiteBox = styled.div`
 const SLink = styled(Link)`
   color: #288cf1;
   margin-left: 0.3rem;
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 const AuthTemplate = ({ children, type }) => {
@@ -52,15 +56,20 @@ const AuthTemplate = ({ children, type }) => {
           {type === 'login' ? (
             <div>
               <span className="membership-text">Login</span>
-
               <span style={{ opacity: '0.3' }}> or</span>
               <SLink to="/register">sign up</SLink>
+              <SLink to="/" style={{ verticalAlign: 'middle' }}>
+                <GoHome />
+              </SLink>
             </div>
           ) : (
             <div>
               <span className="membership-text">Sign Up</span>
               <span style={{ opacity: '0.3' }}> or</span>
               <SLink to="/login">login</SLink>
+              <SLink to="/" style={{ verticalAlign: 'middle' }}>
+                <GoHome />
+              </SLink>
             </div>
           )}
         </div>
