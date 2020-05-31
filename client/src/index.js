@@ -16,7 +16,7 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(sagaMiddleware)),
 );
 
-sagaMiddleware(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -24,6 +24,5 @@ ReactDOM.render(
       <App />
     </BrowserRouter>
   </Provider>,
-
   document.getElementById('root'),
 );

@@ -3,12 +3,12 @@ import User from '../../models/user';
 
 export const register = async (ctx) => {
   // 회원가입
+  // Request Body 검증하기
   const schema = Joi.object().keys({
     name: Joi.string().min(3).max(10).required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
   });
-
   const result = schema.validate(ctx.request.body);
   if (result.error) {
     ctx.status = 400;
@@ -17,9 +17,10 @@ export const register = async (ctx) => {
   }
 
   const { name, email, password } = ctx.request.body;
+  console.log(ctx.request.body);
+
   try {
     // email 중복 체크
-
     const exists = await User.findByEmail(email);
     if (exists) {
       ctx.status = 409; // Conflict
@@ -30,16 +31,15 @@ export const register = async (ctx) => {
       name,
       email,
     });
-    await user.setPassword(password);
-    await user.save();
+    await user.setPassword(password); // 비밀번호 설정
+    await user.save(); // 데이터베이스에 저장
 
-    // 응답할 데이터에서 hashedPassword 필드 제거
     ctx.body = user.serialize();
 
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {
       maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
-      httpOnly: true,
+      httpOnly: true, // 자바스크립트로 쿠키를 조회할 수 없음
     });
   } catch (e) {
     ctx.throw(500, e);
