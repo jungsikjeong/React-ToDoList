@@ -20,6 +20,7 @@ UserSchema.methods.generateToken = function () {
     {
       _id: this.id,
       email: this.email,
+      name: this.name,
     },
     process.env.JWT_SECRET, // 두 번째 파라미터에는 JWT 암호를 넣음
     {

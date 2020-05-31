@@ -38,7 +38,12 @@ const Spacer = styled.div`
   height: 4rem;
 `;
 
-const Header = () => {
+const UserInfo = styled.div`
+  font-weight: 600;
+  margin-right: 1rem;
+`;
+
+const Header = ({ user }) => {
   return (
     <>
       <HeaderBlock>
@@ -46,11 +51,17 @@ const Header = () => {
           <div className="logo">
             <SLink to="/">To-do list today</SLink>
           </div>
-          <div className="right">
-            <SLink to="/login">
-              <FaUserCircle size="24" color="#3498db" />
-            </SLink>
-          </div>
+          {user ? (
+            <div className="right">
+              <UserInfo>{user.name}</UserInfo>
+            </div>
+          ) : (
+            <div className="right">
+              <SLink to="/login">
+                <FaUserCircle size="24" color="#3498db" />
+              </SLink>
+            </div>
+          )}
         </Wrapper>
       </HeaderBlock>
       <Spacer />
