@@ -17,7 +17,6 @@ export const register = async (ctx) => {
   }
 
   const { name, email, password } = ctx.request.body;
-  console.log(ctx.request.body);
 
   try {
     // email 중복 체크
