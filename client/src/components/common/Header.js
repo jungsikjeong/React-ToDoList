@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Responsive from './Responsive';
 import Button from './Button';
 import { Link } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 
 const HeaderBlock = styled.div`
   position: fixed;
@@ -17,9 +18,10 @@ const Wrapper = styled(Responsive)`
   align-items: center;
   justify-content: space-between;
   .logo {
+    color: white;
     font-size: 1.125rem;
     font-weight: 800;
-    font-family: 'Piedra', cursive;
+    font-family: 'Raleway', Arial, sans-serif;
   }
   .right {
     display: flex;
@@ -27,6 +29,11 @@ const Wrapper = styled(Responsive)`
   }
 `;
 
+const SLink = styled(Link)`
+  :hover {
+    opacity: 0.7;
+  }
+`;
 const Spacer = styled.div`
   height: 4rem;
 `;
@@ -37,10 +44,12 @@ const Header = () => {
       <HeaderBlock>
         <Wrapper>
           <div className="logo">
-            <Link to="/">To-do list today</Link>
+            <SLink to="/">To-do list today</SLink>
           </div>
           <div className="right">
-            <Button to="/login">로그인</Button>
+            <SLink to="/login">
+              <FaUserCircle size="24" color="#3498db" />
+            </SLink>
           </div>
         </Wrapper>
       </HeaderBlock>
