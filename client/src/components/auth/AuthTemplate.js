@@ -32,7 +32,7 @@ const WhiteBox = styled.div`
       opacity: 0.7;
     }
   }
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+  box-shadow: rgb(146, 159, 168) 0px 0px 10px 5px;
   padding: 2rem;
   width: 360px;
   background: white;
@@ -44,13 +44,7 @@ const SLink = styled(Link)`
   margin-left: 0.3rem;
 `;
 
-const textMap = {
-  login: 'Login',
-  register: 'Sign Up',
-};
-
 const AuthTemplate = ({ children, type }) => {
-  const text = textMap[type];
   return (
     <AuthTemplateBlock>
       <WhiteBox>

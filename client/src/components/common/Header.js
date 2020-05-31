@@ -36,9 +36,11 @@ const Header = () => {
     <>
       <HeaderBlock>
         <Wrapper>
-          <div className="logo">To-do list today</div>
+          <div className="logo">
+            <Link to="/">To-do list today</Link>
+          </div>
           <div className="right">
-            <Button>로그인</Button>
+            <Button to="/login">로그인</Button>
           </div>
         </Wrapper>
       </HeaderBlock>
