@@ -95,12 +95,12 @@ const SubInfoBlock = styled.div`
   right: 122px;
   margin: 110px 0px 0px;
   font-size: 14px;
+  letter-spacing: -1px;
   animation: 0.3s ease 0s 1 normal forwards running ${infoFrame};
 `;
 
 const SubInfoWrapper = styled.div`
   width: 222px;
-  height: 145px;
   border-radius: 10px;
   background-color: rgb(186, 224, 255);
   box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 15px 2px;
@@ -165,7 +165,10 @@ const Header = ({ user, onToggle, toggle }) => {
                         <span className="userEmail">{user.email}</span>
                       </div>
                     </div>
-                    <InfoLink to="/" className="infoLink">
+                    <InfoLink to="/write" className="infoLink">
+                      할 일 작성
+                    </InfoLink>
+                    <InfoLink to="/profile" className="infoLink">
                       내 정보
                     </InfoLink>
                     <LogoutBtn>로그아웃</LogoutBtn>
