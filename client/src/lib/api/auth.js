@@ -4,6 +4,9 @@ import client from './client';
 export const login = ({ email, password }) =>
   client.post('/api/auth/login', { email, password });
 
+// 로그아웃
+export const logout = () => client.post('/api/auth/logout');
+
 // 회원가입
 export const register = ({ name, email, password }) =>
   client.post('/api/auth/register', { name, email, password });

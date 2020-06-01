@@ -78,6 +78,18 @@ const LogoutBtn = styled(Button)`
   }
 `;
 
+const LoginBtn = styled(Button)`
+  border: 1px solid skyblue;
+  background-color: rgba(0, 0, 0, 0);
+  color: skyblue;
+  padding: 5px;
+  border-radius: 5px;
+  :hover {
+    color: white;
+    background-color: skyblue;
+  }
+`;
+
 const Spacer = styled.div`
   height: 4rem;
 `;
@@ -134,7 +146,7 @@ const SubInfoWrapper = styled.div`
   }
 `;
 
-const Header = ({ user, onToggle, toggle }) => {
+const Header = ({ user, onToggle, toggle, onLogout }) => {
   return (
     <>
       <HeaderBlock>
@@ -171,7 +183,7 @@ const Header = ({ user, onToggle, toggle }) => {
                     <InfoLink to="/profile" className="infoLink">
                       내 정보
                     </InfoLink>
-                    <LogoutBtn>로그아웃</LogoutBtn>
+                    <LogoutBtn onClick={onLogout}>로그아웃</LogoutBtn>
                   </SubInfoWrapper>
                 </SubInfoBlock>
               )}
@@ -179,7 +191,8 @@ const Header = ({ user, onToggle, toggle }) => {
           ) : (
             <div className="right">
               <SLink to="/login">
-                <FaUserCircle size="24" color="#3498db" />
+                {/* <FaUserCircle size="24" color="#3498db" /> */}
+                <LoginBtn>로그인</LoginBtn>
               </SLink>
             </div>
           )}
