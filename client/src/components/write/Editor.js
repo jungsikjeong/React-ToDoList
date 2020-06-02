@@ -55,7 +55,8 @@ const Content = styled.div`
 `;
 
 const Span = styled.span`
-  color: #adb5bd;
+  /* color: #adb5bd; */
+  color: white;
   ${(props) =>
     props.check &&
     css`
