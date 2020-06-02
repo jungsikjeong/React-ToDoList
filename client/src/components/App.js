@@ -6,11 +6,13 @@ import RegisterPage from '../pages/RegisterPage';
 import WritePage from '../pages/WritePage';
 import PostPage from '../pages/PostPage';
 import ProfilePage from '../pages/ProfilePage';
+import MainPage from '../pages/MainPage';
 
 const App = () => {
   return (
     <>
-      <Route component={PostListPage} path={['/@:name', '/']} exact />
+      <Route component={MainPage} path={'/'} exact />
+      <Route component={PostListPage} path={['/@:name', '/postList']} />
       <Route component={ProfilePage} path="/profile" />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />

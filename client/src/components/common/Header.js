@@ -19,7 +19,7 @@ const infoFrame = keyframes`
 const HeaderBlock = styled.div`
   position: fixed;
   width: 100%;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+  /* box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); */
 `;
 
 const Wrapper = styled(Responsive)`
@@ -116,6 +116,7 @@ const SubInfoWrapper = styled.div`
   border-radius: 10px;
   background-color: rgb(186, 224, 255);
   box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 15px 2px;
+
   .userInfo {
     display: flex;
     width: 100%;
@@ -151,14 +152,12 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
     <>
       <HeaderBlock>
         <Wrapper>
-          <div className="logo">
-            <SLink to="/">ToDay~💖</SLink>
-          </div>
+          <div className="logo" />
           {user ? (
             <div className="right">
               <FaUserCircle
                 size="30"
-                color="#3498db"
+                color="#4dabf7"
                 className="userLogo"
                 onClick={() => onToggle()}
               />
@@ -178,12 +177,15 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
                       </div>
                     </div>
                     <InfoLink to="/write" className="infoLink">
-                      할 일 작성
+                      Write a to do
                     </InfoLink>
                     <InfoLink to="/profile" className="infoLink">
-                      내 정보
+                      Profile
                     </InfoLink>
-                    <LogoutBtn onClick={onLogout}>로그아웃</LogoutBtn>
+                    <InfoLink to="/profile" className="infoLink">
+                      Others
+                    </InfoLink>
+                    <LogoutBtn onClick={onLogout}>Log Out</LogoutBtn>
                   </SubInfoWrapper>
                 </SubInfoBlock>
               )}
