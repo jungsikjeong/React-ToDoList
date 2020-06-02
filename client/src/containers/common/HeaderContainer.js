@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import Header from '../../components/common/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../modules/user';
+import { toggleState } from '../../modules/toggle';
 
 const HeaderContainer = () => {
-  const [toggle, setToggle] = useState(false);
   const dispatch = useDispatch();
-  const { user } = useSelector(({ user }) => ({ user: user.user }));
+  const { user, toggle } = useSelector(({ user, toggle }) => ({
+    user: user.user,
+    toggle: toggle.toggle,
+  }));
 
   const onLogout = () => {
     dispatch(logout());
   };
 
   const onToggle = () => {
-    setToggle(!toggle);
+    dispatch(toggleState(false));
   };
   return (
     <Header

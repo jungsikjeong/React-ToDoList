@@ -4,11 +4,11 @@ import Date from 'react-live-clock';
 import Responsive from './Responsive';
 
 const ClockBlock = styled.div`
-  position: relative;
-  margin-right: 0 auto;
-  top: 33px;
+  position: absolute;
+  right: 0;
+  top: 40px;
   width: 500px;
-  height: calc(100% - 33px);
+  height: calc(100% - 40px);
   color: white;
 `;
 
