@@ -1,51 +1,36 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { RiEmotionNormalLine, RiEmotionHappyLine } from "react-icons/ri";
-import { BsTrash } from "react-icons/bs";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { RiEmotionNormalLine, RiEmotionHappyLine } from 'react-icons/ri';
+import { BsTrash } from 'react-icons/bs';
+import TodoInsert from '../TodoInsert';
+import Default from '../Default';
+import Responsive from '../common/Responsive';
+import TagBox from './TagBox';
 
-import TodoInsert from "./TodoInsert";
-import Default from "./Default";
-
-const Container = styled.div`
-  @media (max-width: 600px) {
-    width: 512px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 6rem;
-    overflow: hidden;
-  }
-  font-size: 2rem;
+const Container = styled(Responsive)`
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 `;
 
 const ContainerBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 9rem;
-  @media (max-width: 600px) {
-    padding: 0rem;
-  }
+  padding: 0;
+  min-height: 320px;
+  font-size: 1.125rem;
+  line-height: 1.5;
+`;
 
-  .title {
-  }
+const TitleInput = styled.input`
+  width: 100%;
+  font-size: 3rem;
+  outline: none;
+  padding-bottom: 0.5rem;
+  border: none;
 
-  a {
-    margin-bottom: 1rem;
-  }
-
-  .submit {
-    display: flex;
-    align-items: center;
-    margin-top: 1rem;
-    ${(props) =>
-      props.reset &&
-      css`
-        background: red;
-      `}
-
-    input {
-      border: 0px;
-    }
+  margin-bottom: 1.6rem;
+  background: #2f3238;
+  color: white;
+  :focus {
+    border-bottom: 1px solid #dee2e6;
   }
 `;
 
@@ -53,10 +38,6 @@ const Content = styled.div`
   font-size: 1.2rem;
   padding: 1rem 0rem;
   border-bottom: 1px solid #dee2e6;
-  @media (max-width: 600px) {
-    width: 100vw;
-    overflow-x: hidden;
-  }
 
   .textContainer {
     display: flex;
@@ -67,47 +48,42 @@ const Content = styled.div`
   }
 
   :hover {
-    background: #f8f9fa;
+    transition: 0.2s;
+    background: #3c414a;
+    border-radius: 4px;
   }
 `;
 
 const Span = styled.span`
+  color: #adb5bd;
   ${(props) =>
     props.check &&
     css`
       text-decoration: line-through;
       color: #adb5bd;
-    `}
-  @media (max-width: 600px) {
-    font-size: 1rem;
-  }
+    `};
 `;
 
-const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
+const Editor = ({ todos, onInsert, onRemove, onToggle }) => {
   // GET localStorage
-  const todoList = JSON.parse(localStorage.getItem("todo")) || "";
-
-  console.log("todoList:", todoList);
-  console.log("todos:", todos);
+  //   const todoList = JSON.parse(localStorage.getItem('todo')) || '';
 
   return (
     <Container>
+      <TitleInput placeholder="To Do Title" />
+      <TagBox />
       <ContainerBox>
-        <a href="/">
-          <span className="title">Today</span>
-        </a>
-
-        {todos && todoList
-          ? todoList.map((todo) => (
+        {todos
+          ? todos.map((todo) => (
               <Content key={todo.id}>
                 {todo.checked ? (
                   <>
                     <div className="textContainer">
                       <RiEmotionHappyLine
                         style={{
-                          verticalAlign: "middle",
-                          marginRight: "0.5rem",
-                          color: "#fa5252",
+                          verticalAlign: 'middle',
+                          marginRight: '0.5rem',
+                          color: '#fa5252',
                         }}
                         onClick={() => onToggle(todo.id)}
                       />
@@ -116,7 +92,7 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
                       </Span>
                       <BsTrash
                         onClick={() => onRemove(todo.id)}
-                        style={{ marginLeft: "auto" }}
+                        style={{ marginLeft: 'auto' }}
                       />
                     </div>
                   </>
@@ -125,23 +101,24 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
                     <div className="textContainer">
                       <RiEmotionNormalLine
                         style={{
-                          verticalAlign: "middle",
-                          marginRight: "0.5rem",
+                          verticalAlign: 'middle',
+                          marginRight: '0.5rem',
+                          color: 'adb5bd',
                         }}
                         onClick={() => onToggle(todo.id)}
                       />
                       <Span onClick={() => onToggle(todo.id)}>{todo.text}</Span>
                       <BsTrash
                         onClick={() => onRemove(todo.id)}
-                        style={{ marginLeft: "auto" }}
+                        style={{ marginLeft: 'auto', color: '#adb5bd' }}
                       />
                     </div>
                   </>
                 )}
               </Content>
             ))
-          : ""}
-        {todoList.length === 0 && <Default />}
+          : ''}
+        {todos.length === 0 && <Default />}
 
         <TodoInsert onInsert={onInsert} />
       </ContainerBox>
@@ -149,4 +126,4 @@ const TodoList = ({ todos, onInsert, onRemove, onToggle }) => {
   );
 };
 
-export default TodoList;
+export default Editor;

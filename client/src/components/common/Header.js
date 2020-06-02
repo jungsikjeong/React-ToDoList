@@ -152,7 +152,7 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
       <HeaderBlock>
         <Wrapper>
           <div className="logo">
-            <SLink to="/">To-do list today</SLink>
+            <SLink to="/">ToDay~💖</SLink>
           </div>
           {user ? (
             <div className="right">
