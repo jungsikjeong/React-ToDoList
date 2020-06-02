@@ -20,7 +20,8 @@ const TagForm = styled.form`
     min-width: 0;
     color: white;
     :focus {
-      border-bottom: 1px solid #dee2e6;
+      background: #3c414a;
+      margin-top: 0.2rem;
     }
   }
 `;
