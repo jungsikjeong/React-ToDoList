@@ -1,8 +1,29 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import Editor from '../../components/write/Editor';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeField, initialize } from '../../modules/write';
 
 const EditorContainer = () => {
   const [todos, setTodos] = useState([]);
+  const dispatch = useDispatch();
+  const { title, body } = useSelector(({ write }) => ({
+    title: write.title,
+    body: write.body,
+  }));
+
+  const onChangeFiled = useCallback(
+    (payload) => {
+      dispatch(changeField(payload));
+    },
+    [dispatch],
+  );
+
+  // 언마운트 될때 초기화
+  useEffect(() => {
+    return () => {
+      dispatch(initialize());
+    };
+  }, [dispatch]);
 
   const nextId = useRef(0);
 
@@ -37,12 +58,16 @@ const EditorContainer = () => {
     },
     [todos],
   );
+
   return (
     <Editor
       todos={todos}
       onInsert={onInsert}
       onRemove={onRemove}
       onToggle={onToggle}
+      onChangeFiled={onChangeFiled}
+      title={title}
+      body={body}
     />
   );
 };

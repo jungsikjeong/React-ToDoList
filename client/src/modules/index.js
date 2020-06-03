@@ -4,12 +4,14 @@ import auth, { authSaga } from './auth';
 import user, { userSaga } from './user';
 import loading from './loading';
 import toggle from './toggle';
+import write from './write';
 
 const rootReducer = combineReducers({
   auth,
   loading,
   user,
   toggle,
+  write,
 });
 
 export function* rootSaga() {

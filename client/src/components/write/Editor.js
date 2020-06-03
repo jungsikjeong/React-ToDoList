@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import Responsive from '../common/Responsive';
 import TagBox from './TagBox';
+import WriteActionButtons from './WriteActionButtons';
 
 const EditorBlock = styled(Responsive)`
   width: 50vw;
@@ -50,20 +51,40 @@ const List = styled.div``;
 
 const Item = styled.div``;
 
-const Editor2 = () => {
+const Editor = ({
+  todos,
+  onInsert,
+  onRemove,
+  onToggle,
+  onChangeFiled,
+  title,
+  body,
+}) => {
+  const onChangeTitle = (e) => {
+    onChangeFiled({ key: 'title', value: e.target.value });
+  };
+  const onChangeBody = (e) => {
+    onChangeFiled({ key: 'body', value: e.target.value });
+  };
+
   return (
     <EditorBlock>
       <EditorWrapper>
         <Date>DATE 19.04.04</Date>
         <TagBox />
         <Form>
-          <TitleInput />
-          <TodoInput />
+          <TitleInput
+            placeholder="제목"
+            onChange={onChangeTitle}
+            value={title}
+          />
+          <TodoInput placeholder="body" onChange={onChangeBody} value={body} />
           {/* 임시. 우선 태그와 글쓰기 리덕스 작업후 다시 만지기 */}
         </Form>
+        <WriteActionButtons />
       </EditorWrapper>
     </EditorBlock>
   );
 };
 
-export default Editor2;
+export default Editor;
