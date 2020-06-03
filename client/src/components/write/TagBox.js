@@ -3,33 +3,42 @@ import styled from 'styled-components';
 
 const TagBoxBlock = styled.div`
   width: 100%;
+  display: flex;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+
+  .tagBox {
+    width: 100%;
+    flex-wrap: wrap;
+  }
 `;
 
 const TagForm = styled.form`
   overflow: hidden;
   display: flex;
-  width: 100%;
+  width: 15rem;
+  margin-left: auto;
+  /* flex: 1; */
   input {
-    width: 100%;
-    outline: none;
-    border: none;
+    margin-left: auto;
+    outline: 0;
+    border: 0;
     font-size: 1rem;
-    background: #2f3238;
+    background: #f8f9fa;
+    margin-top: 0.1rem;
+    margin-bottom: 0.1rem;
     padding: 0.5rem;
-    flex: 1;
     min-width: 0;
-    color: white;
-    :focus {
-      background: #3c414a;
-      margin-top: 0.2rem;
-    }
+    color: black;
+    /* z-index: -1; */
+    border-left: 1px solid black;
   }
 `;
 
 const Tag = styled.div`
-  margin-right: 0.5rem;
+  margin: 0.5rem 0 0.5rem 0.3rem;
   cursor: pointer;
-  color: white;
+  color: black;
   &:hover {
     opacity: 0.5;
   }
@@ -37,7 +46,7 @@ const Tag = styled.div`
 
 const TagListBlock = styled.div`
   display: flex;
-  margin-top: 0.5rem;
+  flex-wrap: wrap;
 `;
 
 const TagItem = React.memo(({ tag }) => <Tag>#{tag}</Tag>);
@@ -53,7 +62,9 @@ const TagList = React.memo(({ tags }) => (
 const TagBox = () => {
   return (
     <TagBoxBlock>
-      <TagList tags={['태그1']} />
+      <div className="tagBox">
+        <TagList tags={['태그1', '태그2']} />
+      </div>
       <TagForm>
         <input placeholder="Tag input" />
       </TagForm>
