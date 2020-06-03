@@ -1,7 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Date from 'react-live-clock';
 import Responsive from './Responsive';
+import { useSelector } from 'react-redux';
 
 const ClockBlock = styled.div`
   position: absolute;
@@ -9,7 +10,6 @@ const ClockBlock = styled.div`
   top: 40px;
   width: 500px;
   height: calc(100% - 40px);
-  color: white;
 `;
 
 const ClockWrapper = styled.div`
@@ -19,7 +19,7 @@ const ClockWrapper = styled.div`
   margin-top: 40px;
   font-size: 40px;
   text-align: center;
-  color: black;
+  color: white;
 `;
 
 const CurDate = styled(Date)`
@@ -39,15 +39,21 @@ const CurTime = styled(Date)`
 `;
 
 const Clock = () => {
+  const { toggle } = useSelector(({ toggle }) => ({
+    toggle: toggle.toggle,
+  }));
+
   return (
     <ClockBlock>
-      <ClockWrapper>
-        <CurDate format={'YYYY / M / D'} ticking={true} />
+      {!toggle && (
+        <ClockWrapper>
+          <CurDate format={'YYYY / M / D'} ticking={true} />
 
-        <CurDay format={'dddd'} />
+          <CurDay format={'dddd'} />
 
-        <CurTime format={'hh:mm A'} ticking={true} />
-      </ClockWrapper>
+          <CurTime format={'hh:mm A'} ticking={true} />
+        </ClockWrapper>
+      )}
     </ClockBlock>
   );
 };
