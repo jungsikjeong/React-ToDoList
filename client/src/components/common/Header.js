@@ -182,7 +182,7 @@ const Header = ({ user, onToggle, toggle, onLogout }) => {
                     <InfoLink to="/profile" className="infoLink">
                       Profile
                     </InfoLink>
-                    <InfoLink to="/profile" className="infoLink">
+                    <InfoLink to="/postList" className="infoLink">
                       Others
                     </InfoLink>
                     <LogoutBtn onClick={onLogout}>Log Out</LogoutBtn>
