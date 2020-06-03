@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Responsive from '../common/Responsive';
-import TagBox from './TagBox';
 import WriteActionButtons from './WriteActionButtons';
+import TagBoxContainer from '../../containers/write/TagBoxContainer';
 
 const EditorBlock = styled(Responsive)`
   width: 50vw;
@@ -64,7 +64,7 @@ const Editor = ({
     <EditorBlock>
       <EditorWrapper>
         <Date>DATE 19.04.04</Date>
-        <TagBox />
+        <TagBoxContainer />
         <Form>
           <TitleInput
             placeholder="제목"

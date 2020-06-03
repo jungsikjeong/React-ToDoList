@@ -61,7 +61,7 @@ const TagList = React.memo(({ tags, onRemove }) => (
   </TagListBlock>
 ));
 
-const TagBox = () => {
+const TagBox = ({ onChangeTags, tags }) => {
   const [input, setInput] = useState('');
   const [localTags, setLocalTags] = useState([]);
 
