@@ -56,17 +56,10 @@ const Editor = ({
   onInsert,
   onRemove,
   onToggle,
-  onChangeFiled,
+  onChange,
   title,
   body,
 }) => {
-  const onChangeTitle = (e) => {
-    onChangeFiled({ key: 'title', value: e.target.value });
-  };
-  const onChangeBody = (e) => {
-    onChangeFiled({ key: 'body', value: e.target.value });
-  };
-
   return (
     <EditorBlock>
       <EditorWrapper>
@@ -75,10 +68,16 @@ const Editor = ({
         <Form>
           <TitleInput
             placeholder="제목"
-            onChange={onChangeTitle}
+            onChange={onChange}
+            name="title"
             value={title}
           />
-          <TodoInput placeholder="body" onChange={onChangeBody} value={body} />
+          <TodoInput
+            placeholder="body"
+            onChange={onChange}
+            name="body"
+            value={body}
+          />
           {/* 임시. 우선 태그와 글쓰기 리덕스 작업후 다시 만지기 */}
         </Form>
         <WriteActionButtons />

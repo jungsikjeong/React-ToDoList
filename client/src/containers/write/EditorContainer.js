@@ -11,12 +11,10 @@ const EditorContainer = () => {
     body: write.body,
   }));
 
-  const onChangeFiled = useCallback(
-    (payload) => {
-      dispatch(changeField(payload));
-    },
-    [dispatch],
-  );
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    dispatch(changeField({ key: name, value }));
+  };
 
   // 언마운트 될때 초기화
   useEffect(() => {
@@ -65,7 +63,7 @@ const EditorContainer = () => {
       onInsert={onInsert}
       onRemove={onRemove}
       onToggle={onToggle}
-      onChangeFiled={onChangeFiled}
+      onChange={onChange}
       title={title}
       body={body}
     />
