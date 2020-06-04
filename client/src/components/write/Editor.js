@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Responsive from '../common/Responsive';
-import WriteActionButtons from './WriteActionButtons';
+import WriteActionButtonsContainer from '../../containers/write/WriteActionButtonsContainer';
 import TagBoxContainer from '../../containers/write/TagBoxContainer';
 
 const EditorBlock = styled(Responsive)`
@@ -80,7 +80,7 @@ const Editor = ({
           />
           {/* 임시. 우선 태그와 글쓰기 리덕스 작업후 다시 만지기 */}
         </Form>
-        <WriteActionButtons />
+        <WriteActionButtonsContainer />
       </EditorWrapper>
     </EditorBlock>
   );

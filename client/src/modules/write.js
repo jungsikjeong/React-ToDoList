@@ -27,7 +27,7 @@ export const writePost = createAction(WRITE_POST, ({ title, body, tags }) => ({
 // 사가 생성
 const writePostSaga = createRequestSaga(WRITE_POST, postAPI.writePost);
 export function* writeSaga() {
-  yield takeLatest(WRITE_POST, writePost);
+  yield takeLatest(WRITE_POST, writePostSaga);
 }
 
 const initialState = {
