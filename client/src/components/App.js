@@ -12,7 +12,7 @@ const App = () => {
   return (
     <>
       <Route component={MainPage} path={'/'} exact />
-      <Route component={PostListPage} path={['/@:name', '/postList']} />
+      <Route component={PostListPage} path={['/@:name', '/postList']} exact />
       <Route component={ProfilePage} path="/profile" />
       <Route component={LoginPage} path="/login" />
       <Route component={RegisterPage} path="/register" />
