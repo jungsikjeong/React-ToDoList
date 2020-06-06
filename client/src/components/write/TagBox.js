@@ -32,6 +32,7 @@ const TagForm = styled.form`
     color: #495057;
     /* z-index: -1; */
     border-left: 1px solid black;
+
     :focus::-webkit-input-placeholder {
       color: transparent;
     }

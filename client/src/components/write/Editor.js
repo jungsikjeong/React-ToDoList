@@ -6,6 +6,8 @@ import TagBoxContainer from '../../containers/write/TagBoxContainer';
 import Date from 'react-live-clock';
 import { useDispatch } from 'react-redux';
 import { changeField } from '../../modules/write';
+import { MdRemoveCircleOutline } from 'react-icons/md';
+
 const floater = keyframes`
 0% {
   transform: translateY(0%);
@@ -68,6 +70,7 @@ const TitleInput = styled.input`
   color: #495057;
   margin-bottom: 1.5rem;
   text-align: center;
+  margin-top: 1rem;
 
   ::placeholder {
     text-align: center;
@@ -87,7 +90,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1rem;
   padding: 1rem;
 
   .todoInput {
@@ -100,11 +102,8 @@ const Form = styled.form`
     border: none;
     outline: none;
 
-    padding: 10px;
+    padding: 10px 0px;
 
-    ::placeholder {
-      /* 이곳에 작성 */
-    }
     :hover {
       box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
         0 2px 10px 0 rgba(0, 0, 0, 0.12);
@@ -122,29 +121,30 @@ const List = styled.div`
     cursor: pointer;
   }
 
-  color: black;
-  padding: 1rem;
-
-  span {
-    ${(props) =>
-      props.checked &&
-      css`
-        border-bottom: 1px solid black;
-      `}
+  .checked {
+    text-decoration: line-through;
+    color: #adb5bd;
   }
+  color: #495057;
+  padding: 0 1rem;
 `;
 
-const Item = styled.div`
-  span {
+const ListBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .remove {
+    color: #ff6b6b;
     :hover {
+      color: #ff8787;
     }
   }
 `;
 
-const Editor = ({ title, body }) => {
+const Editor = ({ title, body, localTodos, onLocalInsert, onLocalToggle }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const [localTodos, setLocalTodos] = useState([]);
   const [serverTodos, setServerTodos] = useState([]);
 
   const onChangeTitle = (e) => {
@@ -154,22 +154,6 @@ const Editor = ({ title, body }) => {
   const onChangeBody = (newText) => {
     dispatch(changeField({ key: 'body', value: newText }));
   };
-
-  // 로컬
-  const nextId = useRef(0);
-
-  const onLocalInsert = useCallback(
-    (text) => {
-      const todo = {
-        id: nextId.current,
-        body: text,
-        checked: false,
-      };
-      setLocalTodos(localTodos.concat(todo));
-      nextId.current += 1;
-    },
-    [localTodos],
-  );
 
   const onInsert = useCallback(
     (text) => {
@@ -199,7 +183,6 @@ const Editor = ({ title, body }) => {
   // 책829p 참고
   useEffect(() => {
     setServerTodos(body);
-    console.log(localTodos);
   }, [body]);
 
   return (
@@ -211,7 +194,6 @@ const Editor = ({ title, body }) => {
           <WriteActionButtonsContainer />
         </TopWrapper>
         <TagBoxContainer />
-
         <TitleInput
           placeholder="Write Title"
           onChange={onChangeTitle}
@@ -227,10 +209,27 @@ const Editor = ({ title, body }) => {
             autoComplete="off"
           />
         </Form>
-
-        {localTodos.map((todo, index) => (
-          <List key={index}>
-            <span>{todo.body}</span>
+        {localTodos.map((todo) => (
+          <List key={todo.id} onClick={() => onLocalToggle(todo.id)}>
+            {todo.checked ? (
+              <div className="checked">
+                <ListBox>
+                  {todo.body}
+                  <div className="remove">
+                    <MdRemoveCircleOutline />
+                  </div>
+                </ListBox>
+              </div>
+            ) : (
+              <div>
+                <ListBox>
+                  {todo.body}
+                  <div className="remove">
+                    <MdRemoveCircleOutline />
+                  </div>
+                </ListBox>
+              </div>
+            )}
           </List>
         ))}
       </EditorWrapper>
