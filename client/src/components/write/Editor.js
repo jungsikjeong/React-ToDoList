@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled, { css, keyframes } from 'styled-components';
 import Responsive from '../common/Responsive';
 import WriteActionButtonsContainer from '../../containers/write/WriteActionButtonsContainer';
@@ -59,36 +59,36 @@ const StyleDate = styled(Date)`
   padding: 0.5rem;
 `;
 
+const TitleInput = styled.input`
+  width: 100%;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  background: #fff9db;
+  color: #495057;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  ::placeholder {
+    text-align: center;
+  }
+
+  :hover {
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+      0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    transition: 0.2s;
+  }
+  :focus::-webkit-input-placeholder {
+    color: transparent;
+  }
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
   padding: 1rem;
-
-  .titleInput {
-    width: 100%;
-    font-size: 1.5rem;
-    outline: none;
-    border: none;
-    background: #fff9db;
-    color: #495057;
-    margin-bottom: 1.5rem;
-    text-align: center;
-
-    ::placeholder {
-      text-align: center;
-    }
-
-    :hover {
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
-        0 2px 10px 0 rgba(0, 0, 0, 0.12);
-      transition: 0.2s;
-    }
-    :focus::-webkit-input-placeholder {
-      color: transparent;
-    }
-  }
 
   .todoInput {
     background: #fff9db;
@@ -121,7 +121,10 @@ const List = styled.div`
     animation: 1.5s infinite ${floater};
     cursor: pointer;
   }
+
+  color: black;
   padding: 1rem;
+
   span {
     ${(props) =>
       props.checked &&
@@ -142,6 +145,7 @@ const Editor = ({ title, body }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [localTodos, setLocalTodos] = useState([]);
+  const [serverTodos, setServerTodos] = useState([]);
 
   const onChangeTitle = (e) => {
     dispatch(changeField({ key: 'title', value: e.target.value }));
@@ -151,15 +155,32 @@ const Editor = ({ title, body }) => {
     dispatch(changeField({ key: 'body', value: newText }));
   };
 
+  // 로컬
+  const nextId = useRef(0);
+
+  const onLocalInsert = useCallback(
+    (text) => {
+      const todo = {
+        id: nextId.current,
+        body: text,
+        checked: false,
+      };
+      setLocalTodos(localTodos.concat(todo));
+      nextId.current += 1;
+    },
+    [localTodos],
+  );
+
   const onInsert = useCallback(
     (text) => {
       // if (!text) return; // 공백이라면 추가X
-      if (localTodos.includes(text)) return; // 이미 존재하면 추가X
-      const newText = [...localTodos, text];
-      setLocalTodos([...localTodos, text]);
+      if (serverTodos.includes(text)) return; // 이미 존재하면 추가X
+      const newText = [...serverTodos, text];
+      onLocalInsert(text);
+      setServerTodos(newText);
       onChangeBody(newText);
     },
-    [localTodos, onChangeBody],
+    [serverTodos, onChangeBody],
   );
 
   const onChange = useCallback((e) => {
@@ -177,7 +198,8 @@ const Editor = ({ title, body }) => {
 
   // 책829p 참고
   useEffect(() => {
-    setLocalTodos(body);
+    setServerTodos(body);
+    console.log(localTodos);
   }, [body]);
 
   return (
@@ -190,14 +212,13 @@ const Editor = ({ title, body }) => {
         </TopWrapper>
         <TagBoxContainer />
 
+        <TitleInput
+          placeholder="Write Title"
+          onChange={onChangeTitle}
+          value={title}
+          autoComplete="off"
+        />
         <Form onSubmit={onSubmit}>
-          <input
-            className="titleInput"
-            placeholder="Write Title"
-            onChange={onChangeTitle}
-            value={title}
-            autoComplete="off"
-          />
           <input
             className="todoInput"
             placeholder="Write Todo List"
@@ -207,9 +228,9 @@ const Editor = ({ title, body }) => {
           />
         </Form>
 
-        {localTodos.map((todo) => (
-          <List>
-            <span>{todo.text}</span>
+        {localTodos.map((todo, index) => (
+          <List key={index}>
+            <span>{todo.body}</span>
           </List>
         ))}
       </EditorWrapper>

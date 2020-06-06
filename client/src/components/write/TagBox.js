@@ -18,7 +18,7 @@ const TagForm = styled.form`
   display: flex;
   width: 15rem;
   margin-left: auto;
-  /* flex: 1; */
+
   input {
     margin-left: auto;
     outline: 0;
@@ -58,9 +58,13 @@ const TagItem = React.memo(({ tag, onRemove }) => (
 
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListBlock>
-    {tags.map((tag) => (
-      <TagItem key={tag} tag={tag} onRemove={onRemove} />
-    ))}
+    {tags && (
+      <div>
+        {tags.map((tag) => (
+          <TagItem key={tag} tag={tag} onRemove={onRemove} />
+        ))}
+      </div>
+    )}
   </TagListBlock>
 ));
 
@@ -73,7 +77,7 @@ const TagBox = ({ onChangeTags, tags }) => {
       if (!tag) return; // 공백이라면 추가하지 않음
       if (localTags.includes(tag)) return; // 이미 존재한다면 추가하지않음
       const nextTags = [...localTags, tag];
-      setLocalTags([...localTags, tag]);
+      setLocalTags(nextTags);
       onChangeTags(nextTags);
     },
     [localTags, onChangeTags],
