@@ -24,21 +24,24 @@ const TagForm = styled.form`
     outline: 0;
     border: 0;
     font-size: 1rem;
-    background: #f8f9fa;
+    background: #fff9db;
     margin-top: 0.1rem;
     margin-bottom: 0.1rem;
     padding: 0.5rem;
     min-width: 0;
-    color: black;
+    color: #495057;
     /* z-index: -1; */
     border-left: 1px solid black;
+    :focus::-webkit-input-placeholder {
+      color: transparent;
+    }
   }
 `;
 
 const Tag = styled.div`
   margin: 0.5rem 0 0.5rem 0.3rem;
   cursor: pointer;
-  color: black;
+  color: #495057;
   &:hover {
     opacity: 0.5;
   }

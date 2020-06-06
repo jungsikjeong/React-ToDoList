@@ -32,7 +32,7 @@ export function* writeSaga() {
 
 const initialState = {
   title: '',
-  body: '',
+  body: [],
   tags: [],
   post: null,
   postError: null,

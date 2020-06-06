@@ -1,14 +1,32 @@
-import React from 'react';
-import styled, { css } from 'styled-components';
+import React, { useState, useCallback, useEffect } from 'react';
+import styled, { css, keyframes } from 'styled-components';
 import Responsive from '../common/Responsive';
 import WriteActionButtonsContainer from '../../containers/write/WriteActionButtonsContainer';
 import TagBoxContainer from '../../containers/write/TagBoxContainer';
+import Date from 'react-live-clock';
+import { useDispatch } from 'react-redux';
+import { changeField } from '../../modules/write';
+const floater = keyframes`
+0% {
+  transform: translateY(0%);
+}
+50% {
+  transform: translateY(8%);
+}
+100% {
+  transform: translateY(0%);
+}
+`;
 
 const EditorBlock = styled(Responsive)`
   width: 50vw;
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  /* height: 100%; */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  background: #fff9db;
+
+  box-shadow: rgba(0, 0, 0, 0.75) 0px 0px 15px 2px;
 `;
 
 const EditorWrapper = styled.div`
@@ -17,10 +35,26 @@ const EditorWrapper = styled.div`
   border-top-right-radius: 15px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
-  min-height: 100vh;
+  background: #fff9db;
+  padding: 0;
+  min-height: 90vh;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  box-shadow: 3px 10px 10px rgba(0, 0, 0, 0.75);
+  overflow: hidden;
 `;
 
-const Date = styled.div`
+const TopWrapper = styled.div`
+  display: flex;
+  align-items: center;
+
+  span {
+    text-align: center;
+    margin-left: 0.2rem;
+  }
+`;
+
+const StyleDate = styled(Date)`
   text-align: left;
   padding: 0.5rem;
 `;
@@ -30,57 +64,154 @@ const Form = styled.form`
   flex-direction: column;
   align-items: center;
   margin-top: 1rem;
+  padding: 1rem;
+
+  .titleInput {
+    width: 100%;
+    font-size: 1.5rem;
+    outline: none;
+    border: none;
+    background: #fff9db;
+    color: #495057;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    ::placeholder {
+      text-align: center;
+    }
+
+    :hover {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.2s;
+    }
+    :focus::-webkit-input-placeholder {
+      color: transparent;
+    }
+  }
+
+  .todoInput {
+    background: #fff9db;
+    /* background: black; */
+    text-align: left;
+    width: 100%;
+    color: #495057;
+    font-size: 1.125rem;
+    border: none;
+    outline: none;
+
+    padding: 10px;
+
+    ::placeholder {
+      /* 이곳에 작성 */
+    }
+    :hover {
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),
+        0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      transition: 0.2s;
+    }
+    :focus::-webkit-input-placeholder {
+      color: transparent;
+    }
+  }
 `;
 
-const TitleInput = styled.input`
-  width: 10vw;
-  font-size: 1.5rem;
-  outline: none;
-  border: none;
-  background: #2f3238;
-  color: white;
-  margin-bottom: 3rem;
-  flex: 1 auto;
+const List = styled.div`
+  :hover {
+    animation: 1.5s infinite ${floater};
+    cursor: pointer;
+  }
+  padding: 1rem;
+  span {
+    ${(props) =>
+      props.checked &&
+      css`
+        border-bottom: 1px solid black;
+      `}
+  }
 `;
 
-const TodoInput = styled.input`
-  /* flex: 1 auto; */
+const Item = styled.div`
+  span {
+    :hover {
+    }
+  }
 `;
 
-const List = styled.div``;
+const Editor = ({ title, body }) => {
+  const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const [localTodos, setLocalTodos] = useState([]);
 
-const Item = styled.div``;
+  const onChangeTitle = (e) => {
+    dispatch(changeField({ key: 'title', value: e.target.value }));
+  };
 
-const Editor = ({
-  todos,
-  onInsert,
-  onRemove,
-  onToggle,
-  onChange,
-  title,
-  body,
-}) => {
+  const onChangeBody = (newText) => {
+    dispatch(changeField({ key: 'body', value: newText }));
+  };
+
+  const onInsert = useCallback(
+    (text) => {
+      // if (!text) return; // 공백이라면 추가X
+      if (localTodos.includes(text)) return; // 이미 존재하면 추가X
+      const newText = [...localTodos, text];
+      setLocalTodos([...localTodos, text]);
+      onChangeBody(newText);
+    },
+    [localTodos, onChangeBody],
+  );
+
+  const onChange = useCallback((e) => {
+    setValue(e.target.value);
+  }, []);
+
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      onInsert(value);
+      setValue('');
+    },
+    [value, onInsert],
+  );
+
+  // 책829p 참고
+  useEffect(() => {
+    setLocalTodos(body);
+  }, [body]);
+
   return (
     <EditorBlock>
       <EditorWrapper>
-        <Date>DATE 19.04.04</Date>
+        <TopWrapper>
+          <span>Date</span>
+          <StyleDate format={'YY. M. D'} ticking={true} />
+          <WriteActionButtonsContainer />
+        </TopWrapper>
         <TagBoxContainer />
-        <Form>
-          <TitleInput
-            placeholder="제목"
-            onChange={onChange}
-            name="title"
+
+        <Form onSubmit={onSubmit}>
+          <input
+            className="titleInput"
+            placeholder="Write Title"
+            onChange={onChangeTitle}
             value={title}
+            autoComplete="off"
           />
-          <TodoInput
-            placeholder="body"
+          <input
+            className="todoInput"
+            placeholder="Write Todo List"
             onChange={onChange}
-            name="body"
-            value={body}
+            value={value}
+            autoComplete="off"
           />
-          {/* 임시. 우선 태그와 글쓰기 리덕스 작업후 다시 만지기 */}
         </Form>
-        <WriteActionButtonsContainer />
+
+        {localTodos.map((todo) => (
+          <List>
+            <span>{todo.text}</span>
+          </List>
+        ))}
       </EditorWrapper>
     </EditorBlock>
   );

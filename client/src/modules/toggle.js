@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 
 const TOGGLESTATE = 'toggle/TOGGLESTATUS';
 
-export const toggleState = createAction(TOGGLESTATE, (toggle) => toggle);
+export const toggleState = createAction(TOGGLESTATE);
 
 const initialState = {
   toggle: '',

@@ -6,6 +6,7 @@ import { toggleState } from '../../modules/toggle';
 
 const HeaderContainer = () => {
   const dispatch = useDispatch();
+
   const { user, toggle } = useSelector(({ user, toggle }) => ({
     user: user.user,
     toggle: toggle.toggle,
