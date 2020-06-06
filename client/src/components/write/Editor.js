@@ -142,7 +142,14 @@ const ListBox = styled.div`
   }
 `;
 
-const Editor = ({ title, body, localTodos, onLocalInsert, onLocalToggle }) => {
+const Editor = ({
+  title,
+  body,
+  localTodos,
+  onLocalInsert,
+  onLocalToggle,
+  onLocalRemove,
+}) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
   const [serverTodos, setServerTodos] = useState([]);
@@ -210,12 +217,15 @@ const Editor = ({ title, body, localTodos, onLocalInsert, onLocalToggle }) => {
           />
         </Form>
         {localTodos.map((todo) => (
-          <List key={todo.id} onClick={() => onLocalToggle(todo.id)}>
+          <List key={todo.id}>
             {todo.checked ? (
               <div className="checked">
                 <ListBox>
-                  {todo.body}
-                  <div className="remove">
+                  <div onClick={() => onLocalToggle(todo.id)}>{todo.body}</div>
+                  <div
+                    className="remove"
+                    onClick={() => onLocalRemove(todo.id)}
+                  >
                     <MdRemoveCircleOutline />
                   </div>
                 </ListBox>
@@ -223,8 +233,11 @@ const Editor = ({ title, body, localTodos, onLocalInsert, onLocalToggle }) => {
             ) : (
               <div>
                 <ListBox>
-                  {todo.body}
-                  <div className="remove">
+                  <div onClick={() => onLocalToggle(todo.id)}>{todo.body}</div>
+                  <div
+                    className="remove"
+                    onClick={() => onLocalRemove(todo.id)}
+                  >
                     <MdRemoveCircleOutline />
                   </div>
                 </ListBox>
