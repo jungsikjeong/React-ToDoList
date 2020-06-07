@@ -31,6 +31,15 @@ const PostViewerWrapper = styled.div`
 
 const PostHead = styled.div`
   display: flex;
+  padding: 0 1rem;
+  color: #495057;
+  font-size: 1rem;
+
+  span + span:before {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    content: '\\B7';
+  }
 `;
 
 const Title = styled.div`
@@ -45,28 +54,50 @@ const Title = styled.div`
 
 const SubInfo = styled.div`
   margin-left: auto;
+
+  display: flex;
+  align-items: center;
 `;
 
-const PostContent = styled.div``;
+const PostContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.2rem 1rem;
+  color: #495057;
+`;
 
-const PostViewer = () => {
+const PostViewer = ({ post, loading, error }) => {
+  // 에러 발생 시
+  if (error) {
+    if (error.response && error.response.status === 404) {
+      return <PostViewerBlock>존재하지 않는 포스트입니다.</PostViewerBlock>;
+    }
+    return <PostViewerBlock>오류 발생!</PostViewerBlock>;
+  }
+
+  // 로딩 중이거나 아직 포스트 데이터가 없을때
+  if (loading || !post) {
+    return null;
+    // 나중에 작업
+  }
+
+  const { title, body, user, publishedDate, tags } = post;
+
   return (
     <>
       <PostViewerBlock>
         <PostViewerWrapper>
           <PostHead>
-            <span>Date </span>
-            <span>{new Date().toLocaleDateString()}</span>
+            <span>Date</span>
+            <span> {new Date(publishedDate).toLocaleDateString()}</span>
             <SubInfo>정중식</SubInfo>
           </PostHead>
-          <Tags />
-          <Title>제목</Title>
-
-          <PostContent
-            dangerouslySetInnerHTML={{
-              __html: '<p>HTML <b>내용</b>입니다</p>',
-            }}
-          />
+          <Tags tags={tags} />
+          <Title>{title}</Title>
+          {body.map((todo) => (
+            <PostContent key={todo}>{todo}</PostContent>
+          ))}
         </PostViewerWrapper>
       </PostViewerBlock>
     </>
@@ -74,3 +105,11 @@ const PostViewer = () => {
 };
 
 export default PostViewer;
+
+{
+  /* <PostContent
+  dangerouslySetInnerHTML={{
+    __html: body,
+  }}
+/>; */
+}

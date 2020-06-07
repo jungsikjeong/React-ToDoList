@@ -9,6 +9,7 @@ const TagBoxBlock = styled.div`
 
   .tagBox {
     width: 100%;
+    display: flex;
     flex-wrap: wrap;
   }
 `;
@@ -60,7 +61,7 @@ const TagItem = React.memo(({ tag, onRemove }) => (
 const TagList = React.memo(({ tags, onRemove }) => (
   <TagListBlock>
     {tags && (
-      <div>
+      <div className="tagBox">
         {tags.map((tag) => (
           <TagItem key={tag} tag={tag} onRemove={onRemove} />
         ))}

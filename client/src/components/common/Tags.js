@@ -8,8 +8,11 @@ const TagsBlock = styled.div`
   border-top: 1px solid black;
   border-bottom: 1px solid black;
   margin-top: 0.5rem;
+  padding: 0 1rem;
 
   .tag {
+    display: flex;
+    font-size: 0.8rem;
     margin: 0.5rem 0 0.5rem 0.3rem;
     cursor: pointer;
     color: #495057;
@@ -19,12 +22,14 @@ const TagsBlock = styled.div`
   }
 `;
 
-const Tags = () => {
+const Tags = ({ tags }) => {
   return (
     <TagsBlock>
-      <Link className="tag" to="#">
-        #태그1,#태그2
-      </Link>
+      {tags.map((tag) => (
+        <Link className="tag" to="#" key={tag}>
+          #{tag}
+        </Link>
+      ))}
     </TagsBlock>
   );
 };
