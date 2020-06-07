@@ -164,10 +164,8 @@ const Editor = ({
 
   const onInsert = useCallback(
     (text) => {
-      // if (!text) return; // 공백이라면 추가X
-
       if (serverTodos && serverTodos.includes(text)) return; // 이미 존재하면 추가X
-
+      console.log(text);
       const newText = [...serverTodos, text];
       onLocalInsert(text);
       setServerTodos(newText);
@@ -183,7 +181,9 @@ const Editor = ({
   const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
-      onInsert(value);
+      if (value) {
+        onInsert(value);
+      }
       setValue('');
     },
     [value, onInsert],

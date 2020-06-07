@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../common/Button';
 
-// 버튼 css 일단은 이렇게.
 const WriteActionButtonsBlock = styled.div`
   margin-left: auto;
   margin-right: 0.5rem;
