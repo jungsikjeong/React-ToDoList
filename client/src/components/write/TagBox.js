@@ -76,7 +76,8 @@ const TagBox = ({ onChangeTags, tags }) => {
   const insertTag = useCallback(
     (tag) => {
       if (!tag) return; // 공백이라면 추가하지 않음
-      if (localTags.includes(tag)) return; // 이미 존재한다면 추가하지않음
+      if (localTags && localTags.includes(tag)) return; // 이미 존재한다면 추가하지않음
+
       const nextTags = [...localTags, tag];
       setLocalTags(nextTags);
       onChangeTags(nextTags);

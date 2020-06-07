@@ -52,7 +52,7 @@ const EditorContainer = () => {
       setLocalTodos(localTodos.filter((todo) => todo.id !== id));
     },
     [localTodos],
-  );
+  ); // 로컬에서만 적용되는데 리덕스에도 적용되게끔작업!
 
   return (
     <Editor

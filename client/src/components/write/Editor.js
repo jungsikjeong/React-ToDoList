@@ -165,7 +165,9 @@ const Editor = ({
   const onInsert = useCallback(
     (text) => {
       // if (!text) return; // 공백이라면 추가X
-      if (serverTodos.includes(text)) return; // 이미 존재하면 추가X
+
+      if (serverTodos && serverTodos.includes(text)) return; // 이미 존재하면 추가X
+
       const newText = [...serverTodos, text];
       onLocalInsert(text);
       setServerTodos(newText);
