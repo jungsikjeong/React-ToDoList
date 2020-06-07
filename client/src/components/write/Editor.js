@@ -146,33 +146,17 @@ const Editor = ({
   title,
   body,
   localTodos,
+  onInsert,
+  serverTodos,
   onLocalInsert,
   onLocalToggle,
   onLocalRemove,
+  onChangeTitle,
+  onChangeBody,
+  setServerTodos,
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');
-  const [serverTodos, setServerTodos] = useState([]);
-
-  const onChangeTitle = (e) => {
-    dispatch(changeField({ key: 'title', value: e.target.value }));
-  };
-
-  const onChangeBody = (newText) => {
-    dispatch(changeField({ key: 'body', value: newText }));
-  };
-
-  const onInsert = useCallback(
-    (text) => {
-      if (serverTodos && serverTodos.includes(text)) return; // 이미 존재하면 추가X
-      console.log(text);
-      const newText = [...serverTodos, text];
-      onLocalInsert(text);
-      setServerTodos(newText);
-      onChangeBody(newText);
-    },
-    [serverTodos, onChangeBody],
-  );
 
   const onChange = useCallback((e) => {
     setValue(e.target.value);
