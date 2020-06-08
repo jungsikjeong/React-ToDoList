@@ -150,7 +150,7 @@ const Editor = ({
   serverTodos,
   onLocalInsert,
   onLocalToggle,
-  onLocalRemove,
+  onRemove,
   onChangeTitle,
   onChangeBody,
   setServerTodos,
@@ -208,10 +208,7 @@ const Editor = ({
               <div className="checked">
                 <ListBox>
                   <div onClick={() => onLocalToggle(todo.id)}>{todo.body}</div>
-                  <div
-                    className="remove"
-                    onClick={() => onLocalRemove(todo.id)}
-                  >
+                  <div className="remove" onClick={() => onRemove(todo.id)}>
                     <MdRemoveCircleOutline />
                   </div>
                 </ListBox>
@@ -220,10 +217,7 @@ const Editor = ({
               <div>
                 <ListBox>
                   <div onClick={() => onLocalToggle(todo.id)}>{todo.body}</div>
-                  <div
-                    className="remove"
-                    onClick={() => onLocalRemove(todo.id)}
-                  >
+                  <div className="remove" onClick={() => onRemove(todo.id)}>
                     <MdRemoveCircleOutline />
                   </div>
                 </ListBox>

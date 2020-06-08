@@ -71,13 +71,14 @@ const EditorContainer = () => {
     [localTodos],
   );
 
-  const onLocalRemove = useCallback(
+  const onRemove = useCallback(
     (id) => {
-      const newLocalText = localTodos.filter((todo) => todo.id !== id);
-      setLocalTodos(newLocalText);
+      const newText = localTodos.filter((todo) => todo.id !== id);
+      setLocalTodos(newText);
+      onChangeBody(newText);
     },
-    [localTodos],
-  ); // 로컬에서만 적용되는데 리덕스에도 적용되게끔작업!
+    [localTodos, onChangeBody],
+  );
 
   return (
     <Editor
@@ -85,7 +86,7 @@ const EditorContainer = () => {
       serverTodos={serverTodos}
       onLocalInsert={onLocalInsert}
       onLocalToggle={onLocalToggle}
-      onLocalRemove={onLocalRemove}
+      onRemove={onRemove}
       onChangeTitle={onChangeTitle}
       onChangeBody={onChangeBody}
       onInsert={onInsert}
