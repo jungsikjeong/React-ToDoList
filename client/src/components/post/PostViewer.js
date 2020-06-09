@@ -53,10 +53,9 @@ const Title = styled.div`
 `;
 
 const SubInfo = styled.div`
-  margin-left: auto;
-
   display: flex;
   align-items: center;
+  margin-left: 0.25rem;
 `;
 
 const PostContent = styled.div`
@@ -67,7 +66,7 @@ const PostContent = styled.div`
   color: #495057;
 `;
 
-const PostViewer = ({ post, loading, error }) => {
+const PostViewer = ({ post, loading, error, actionButtons }) => {
   // 에러 발생 시
   if (error) {
     if (error.response && error.response.status === 404) {
@@ -93,6 +92,7 @@ const PostViewer = ({ post, loading, error }) => {
             <span> {new Date(publishedDate).toLocaleDateString()}</span>
             <SubInfo>정중식</SubInfo>
           </PostHead>
+          {actionButtons}
           <Tags tags={tags} />
           <Title>{title}</Title>
           {body.map((todo) => (

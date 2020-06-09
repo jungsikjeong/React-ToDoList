@@ -4,26 +4,29 @@ import styled from 'styled-components';
 const PostActionButtonsBlock = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 2rem;
-  margin-top: -1.5rem;
+
+  margin-top: -1.2rem;
+  margin-right: 0.5rem;
 `;
 
-const ActionButton = styled.div`
-  padding: 0.25rem 0.5rem;
+const ActionButton = styled.button`
+  padding: 0;
   border-radius: 4px;
-  color: gray;
+  background: #fff9db;
+  color: #495057;
   font-weight: bold;
   border: none;
   outline: none;
   font-size: 0.875rem;
   cursor: pointer;
-  &:hover {
-    background: red;
-    color: green;
+
+  :hover {
+    /* background: #fff9db; */
+    opacity: 0.6;
   }
 
   & + & {
-    margin-left: 0.25rem;
+    margin-left: 0.5rem;
   }
 `;
 
