@@ -4,7 +4,6 @@ import styled from 'styled-components';
 const PostActionButtonsBlock = styled.div`
   display: flex;
   justify-content: flex-end;
-
   margin-top: -1.2rem;
   margin-right: 0.5rem;
 `;
