@@ -77,7 +77,9 @@ const TagBox = ({ onChangeTags, tags }) => {
   const insertTag = useCallback(
     (tag) => {
       if (!tag) return; // 공백이라면 추가하지 않음
+      if (localTags && localTags.includes(tag)) return;
       if (localTags === null || localTags === undefined) {
+        console.log('localTags가 null입니다.');
         return;
       }
       const nextTags = [...localTags, tag];
@@ -116,12 +118,12 @@ const TagBox = ({ onChangeTags, tags }) => {
 
   useEffect(() => {
     console.log(localTags);
-  }, []);
+  }, [localTags]);
+
   return (
     <TagBoxBlock>
-      <div className="tagBox">
-        <TagList tags={localTags} onRemove={onRemove} />
-      </div>
+      <TagList tags={localTags} onRemove={onRemove} />
+
       <TagForm onSubmit={onSubmit}>
         <input placeholder="Tag input" value={input} onChange={onChange} />
       </TagForm>
