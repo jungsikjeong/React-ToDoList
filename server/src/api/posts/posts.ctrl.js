@@ -86,7 +86,6 @@ export const list = async (ctx) => {
     ...(name ? { 'user.name': name } : {}),
     ...(tag ? { tags: tag } : {}),
   };
-  console.log(query);
 
   try {
     const posts = await Post.find(query)
