@@ -90,7 +90,7 @@ const PostViewer = ({ post, loading, error, actionButtons }) => {
           <PostHead>
             <span>Date</span>
             <span> {new Date(publishedDate).toLocaleDateString()}</span>
-            <SubInfo>정중식</SubInfo>
+            <SubInfo>{user.name}</SubInfo>
           </PostHead>
           {actionButtons}
           <Tags tags={tags} />

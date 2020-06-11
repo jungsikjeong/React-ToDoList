@@ -116,10 +116,6 @@ const TagBox = ({ onChangeTags, tags }) => {
     setLocalTags(tags);
   }, [tags]);
 
-  useEffect(() => {
-    console.log(localTags);
-  }, [localTags]);
-
   return (
     <TagBoxBlock>
       <TagList tags={localTags} onRemove={onRemove} />

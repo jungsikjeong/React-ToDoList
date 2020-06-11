@@ -145,6 +145,7 @@ const ListBox = styled.div`
 const Editor = ({
   title,
   body,
+  post,
   localTodos,
   onInsert,
   serverTodos,
@@ -154,6 +155,7 @@ const Editor = ({
   onChangeTitle,
   onChangeBody,
   setServerTodos,
+  setLocalTodos,
 }) => {
   const dispatch = useDispatch();
   const [value, setValue] = useState('');

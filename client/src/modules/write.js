@@ -24,7 +24,7 @@ export const writePost = createAction(WRITE_POST, ({ title, body, tags }) => ({
   body,
   tags,
 }));
-export const setOriginalPost = createAction(SET_ORIGINAL_POST, (post) => post);
+export const setOriginalPost = createAction(SET_ORIGINAL_POST, (post) => post); // 특정 포스트의 id를 담음
 
 // 사가 생성
 const writePostSaga = createRequestSaga(WRITE_POST, postAPI.writePost);

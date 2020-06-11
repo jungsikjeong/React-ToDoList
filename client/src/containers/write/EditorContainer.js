@@ -12,9 +12,10 @@ const EditorContainer = () => {
   const [localTodos, setLocalTodos] = useState([]);
   const [serverTodos, setServerTodos] = useState([]);
 
-  const { title, body } = useSelector(({ write }) => ({
+  const { title, body, post } = useSelector(({ write, post }) => ({
     title: write.title,
     body: write.body,
+    post: post.post,
   }));
 
   // 언마운트 될때 초기화
@@ -39,7 +40,6 @@ const EditorContainer = () => {
       onLocalInsert(text);
       setServerTodos(newText);
       onChangeBody(newText);
-      console.log('serverTodos:', serverTodos);
     },
     [serverTodos, onChangeBody],
   );
@@ -75,9 +75,10 @@ const EditorContainer = () => {
     (id) => {
       const newText = localTodos.filter((todo) => todo.id !== id);
       setLocalTodos(newText);
+      setServerTodos(newText);
       onChangeBody(newText);
     },
-    [localTodos, onChangeBody],
+    [localTodos, serverTodos, onChangeBody],
   );
 
   return (
@@ -91,8 +92,10 @@ const EditorContainer = () => {
       onChangeBody={onChangeBody}
       onInsert={onInsert}
       setServerTodos={setServerTodos}
+      setLocalTodos={setLocalTodos}
       title={title}
       body={body}
+      post={post}
     />
   );
 };
